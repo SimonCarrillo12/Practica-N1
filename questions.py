@@ -19,6 +19,8 @@ answers = [
         "# Esto es un comentario",
     ),
     ("=", "==", "!=", "==="), ]
+#Puntaje del jugador al finalizar
+puntaje_user = 0
 # Índice de la respuesta correcta para cada pregunta, el el mismo orden que las preguntas
 correct_answers_index = [1, 2, 0, 3, 1]
 # El usuario deberá contestar 3 preguntas
@@ -32,10 +34,13 @@ for _ in range(3):
     # El usuario tiene 2 intentos para responder correctamente
     for intento in range(2):
         user_answer = int(input("Respuesta: ")) - 1
-        if 1<= user_answer <=4 :
+        if not (0 <= user_answer <= 3):
             print ("Respuesta no valida") 
+        if user_answer!= correct_answers_index[question_index]:
+            puntaje_user = puntaje_user - 0.5    
         # Se verifica si la respuesta es correcta
         if user_answer == correct_answers_index[question_index]:
+            puntaje_user = puntaje_user + 1
             print("¡Correcto!")
             break
     else:
@@ -46,3 +51,5 @@ for _ in range(3):
 [correct_answers_index[question_index]])
     # Se imprime un blanco al final de la pregunta
     print()
+# Se imprime la cantidad de puntos que logro el usuario    
+print("El puntaje final fue de ", puntaje_user,"puntos")
