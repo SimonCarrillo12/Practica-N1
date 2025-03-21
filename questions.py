@@ -25,13 +25,13 @@ puntaje_user = 0
 # Índice de la respuesta correcta para cada pregunta, el el mismo orden que las preguntas
 correct_answers_index = [1, 2, 0, 3, 1]
 #Evitamos acceder a las 3 listas utilizando indices
-questions_to_ask = random.choices(list(zip(questions, answers, correct_answers_index)), k=3)
+questions_to_ask = random.sample(list(zip(questions, answers, correct_answers_index)), k=3)
 # El usuario deberá contestar 3 preguntas
-for question, user_answer, correct_index in questions_to_ask:
+for question, answer, correct_index in questions_to_ask:
     # Se muestra la pregunta y las respuestas posibles
     print(question)
-    for i in range(len(user_answer)):
-        print(f"{i + 1}. {user_answer[i]}")
+    for i in range(len(answer)):
+        print(f"{i + 1}. {answer[i]}")
     # El usuario tiene 2 intentos para responder correctamente
     for intento in range(2):
         user_answer = int(input("Respuesta: ")) - 1
