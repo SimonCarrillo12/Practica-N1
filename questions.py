@@ -19,27 +19,29 @@ answers = [
         "# Esto es un comentario",
     ),
     ("=", "==", "!=", "==="), ]
+
 #Puntaje del jugador al finalizar
 puntaje_user = 0
 # Índice de la respuesta correcta para cada pregunta, el el mismo orden que las preguntas
 correct_answers_index = [1, 2, 0, 3, 1]
+#Evitamos acceder a las 3 listas utilizando indices
+questions_to_ask = random.choices(list(zip(questions, answers, correct_answers_index)), k=3)
 # El usuario deberá contestar 3 preguntas
-for _ in range(3):
-    # Se selecciona una pregunta aleatoria
-    question_index = random.randint(0, len(questions) - 1)
+for question, user_answer, correct_index in questions_to_ask:
     # Se muestra la pregunta y las respuestas posibles
-    print(questions[question_index])
-    for i, answer in enumerate(answers[question_index]):
-        print(f"{i + 1}. {answer}")
+    print(question)
+    for i in range(len(user_answer)):
+        print(f"{i + 1}. {user_answer[i]}")
     # El usuario tiene 2 intentos para responder correctamente
     for intento in range(2):
         user_answer = int(input("Respuesta: ")) - 1
         if not (0 <= user_answer <= 3):
             print ("Respuesta no valida") 
-        if user_answer!= correct_answers_index[question_index]:
-            puntaje_user = puntaje_user - 0.5    
+        if user_answer!= correct_index:
+            puntaje_user = puntaje_user - 0.5 
+            print ("Respuesta Incorrecta")   
         # Se verifica si la respuesta es correcta
-        if user_answer == correct_answers_index[question_index]:
+        if user_answer == correct_index:
             puntaje_user = puntaje_user + 1
             print("¡Correcto!")
             break
@@ -47,8 +49,7 @@ for _ in range(3):
         # Si el usuario no responde correctamente después de 2 intentos,
         # se muestra la respuesta correcta
         print("Incorrecto. La respuesta correcta es:")
-        print(answers[question_index]
-[correct_answers_index[question_index]])
+        print(answers[correct_index])
     # Se imprime un blanco al final de la pregunta
     print()
 # Se imprime la cantidad de puntos que logro el usuario    
